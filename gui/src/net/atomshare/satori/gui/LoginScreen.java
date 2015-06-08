@@ -17,6 +17,15 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javax.net.ssl.HttpsURLConnection;
+
+import java.io.*;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Scanner;
 
 public class LoginScreen extends Application {
     public static void main(String[] args) {
@@ -43,14 +52,7 @@ public class LoginScreen extends Application {
         hbBtn.getChildren().add(btn);
         grid.add(hbBtn, 1, 4);
 
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-            	Stage stage=new Stage();
-                Contests c=new Contests();
-                c.start(stage);
-            }
-        });
+        
 
         Scene scene = new Scene(grid, 350, 275);
         primaryStage.setScene(scene);
@@ -62,15 +64,25 @@ public class LoginScreen extends Application {
         Label userName = new Label("Nazwa:");
         grid.add(userName, 0, 1);
 
-        TextField userTextField = new TextField();
+        final TextField userTextField = new TextField();
         grid.add(userTextField, 1, 1);
 
         Label pw = new Label("Hasło:");
         grid.add(pw, 0, 2);
 
-        PasswordField pwBox = new PasswordField();
+        final PasswordField pwBox = new PasswordField();
         grid.add(pwBox, 1, 2);
-
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+            	Stage stage=new Stage();
+            	String login = userTextField.getText();
+            	String password = pwBox.getText();
+            	String encoding=Base64.encodeBase64String(  (login+":"+password).getBytes(Charset.forName("UTF-8")));
+                Contests c=new Contests(encoding);
+                c.start(stage);
+            }
+        });
         primaryStage.show();
     }
 }
