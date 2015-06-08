@@ -23,13 +23,16 @@ import javafx.scene.control.*;
 
 public class SubmitScreen extends Application{
 	String contest;
+	String encoding;
 	SubmitScreen()
 	{
 		contest=null;
+		encoding=null;
 	}
-	SubmitScreen(String r)
+	SubmitScreen(String r, String s)
 	{
 		contest=r;
+		encoding=s;
 	}
 	public static void main(String[] args) {
         launch(args);
