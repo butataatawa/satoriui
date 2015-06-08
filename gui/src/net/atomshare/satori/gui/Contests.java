@@ -24,14 +24,14 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 
 public class Contests extends Application{
-	String user;
+	String encoding;
 	Contests()
 	{
-		user=null;
+		encoding=null;
 	}
 	Contests(String s)
 	{
-		user=s;
+		encoding=s;
 	}
 	public static void main(String[] args) {
         launch(args);
@@ -57,7 +57,7 @@ public class Contests extends Application{
         final Text actiontarget = new Text();
         grid.add(actiontarget, 1, 4);
         
-        ContestList cl=new ContestList();
+        ContestList cl=new ContestList(encoding);
         ArrayList<String> l=cl.listContests();
         final ListView<String> list = new ListView<String>();
         ObservableList<String> items =FXCollections.observableArrayList (l);
@@ -73,7 +73,7 @@ public class Contests extends Application{
             public void handle(ActionEvent e) {
             	if (list.getSelectionModel().getSelectedItem()!=null){
             	Stage stage=new Stage();
-                Problems p=new Problems(list.getSelectionModel().getSelectedItem());
+                Problems p=new Problems(list.getSelectionModel().getSelectedItem(), encoding);
                 p.start(stage);
                 actiontarget.setText("");
             	}
