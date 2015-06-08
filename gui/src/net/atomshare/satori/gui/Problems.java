@@ -22,6 +22,15 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 
 public class Problems extends Application{
+	String contest;
+	Problems()
+	{
+		contest=null;
+	}
+	Problems(String r)
+	{
+		contest=r;
+	}
     public static void main(String[] args) {
         launch(args);
     }
@@ -41,25 +50,65 @@ public class Problems extends Application{
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
         hbBtn.getChildren().add(btn);
         grid.add(hbBtn, 2, 3);
+        
+        Button btn2 = new Button("Wyślij rozwiązanie");
+        HBox hbBtn2 = new HBox(10);
+        hbBtn2.setAlignment(Pos.BOTTOM_RIGHT);
+        hbBtn2.getChildren().add(btn2);
+        grid.add(hbBtn2, 0, 3);
+        
+        Button btn3 = new Button("Wyświetl wyniki");
+        HBox hbBtn3 = new HBox(10);
+        hbBtn3.setAlignment(Pos.BOTTOM_RIGHT);
+        hbBtn3.getChildren().add(btn3);
+        grid.add(hbBtn3, 1, 3);
 
-        ListView<String> list = new ListView<String>();
+        final ListView<String> list = new ListView<String>();
         ObservableList<String> items =FXCollections.observableArrayList (
                 "A  Nazwa1", "B  Nazwa2", "C  Nazwa3", "D  Nazwa 4");
         list.setItems(items);
         list.setPrefSize(210, 30);
         grid.add(list, 1, 1, 2, 1);
 
-
+        final Text actiontarget = new Text();
+        grid.add(actiontarget, 1, 4);
 
         btn.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent e) {
-
+            	if (list.getSelectionModel().getSelectedItem()!=null){
+            		actiontarget.setText("");
+            	}
+            	else
+            	{
+            		actiontarget.setFill(Color.RED);
+            		actiontarget.setText("Wybierz zadanie!");
+            	}
             }
         });
 
-        Scene scene = new Scene(grid, 400, 225);
+        btn2.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent e) {
+            	Stage stage=new Stage();
+                SubmitScreen s=new SubmitScreen(contest);
+                s.start(stage);
+            }
+        });
+        
+        btn3.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent e) {
+            	Stage stage=new Stage();
+                Results r=new Results(contest);
+                r.start(stage);
+            }
+        });
+        
+        Scene scene = new Scene(grid, 500, 225);
         primaryStage.setScene(scene);
 
         Text scenetitle = new Text("Problemy");
