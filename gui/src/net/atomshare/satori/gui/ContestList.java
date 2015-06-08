@@ -12,9 +12,22 @@ import java.util.Scanner;
 import org.apache.commons.codec.binary.Base64;
 import org.json.simple.*;
 public class ContestList {
-	String login = "farqd";
-    String password = "korwinkrul";
+	String login;;
+    String password;
     String encoding;
+    ContestList()
+    {
+    	encoding=null;
+    }
+    ContestList(String s)
+    {
+    	encoding=s;
+    }
+    public ArrayList<String> listProblems(String contest)
+    {
+    	ArrayList<String> list=new ArrayList<String>();
+    	return list;
+    }
 	  public ArrayList<String> listContests()
 	    {
 		  ArrayList<String> list=new ArrayList<String>();
@@ -23,7 +36,7 @@ public class ContestList {
 
 	        try {
 	            URL url = new URL ("https://satori.atomshare.net/contests"); // "http://ip:port/login"
-	            String encoding = Base64.encodeBase64String(  (login+":"+password).getBytes(Charset.forName("UTF-8")));
+	            //String encoding = Base64.encodeBase64String(  (login+":"+password).getBytes(Charset.forName("UTF-8")));
 
 	            HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
 	            connection.setRequestMethod("GET");
@@ -47,7 +60,7 @@ public class ContestList {
 	            if(K.get("contestant") != null) {
 	                JSONObject cont = (JSONObject) K.get("contest");
 	                if((Boolean)cont.get("archived")==false)
-	                list.add(cont.get("name"));
+	                list.add(cont.get("name").toString());
 	            }
 	        }
 	        return list;
