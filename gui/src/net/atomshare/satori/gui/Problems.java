@@ -23,13 +23,16 @@ import javafx.scene.control.*;
 
 public class Problems extends Application{
 	String contest;
+	String encoding;
 	Problems()
 	{
 		contest=null;
+		encoding=null;
 	}
-	Problems(String r)
+	Problems(String r, String s)
 	{
 		contest=r;
+		encoding=s;
 	}
     public static void main(String[] args) {
         launch(args);
@@ -93,7 +96,7 @@ public class Problems extends Application{
             @Override
             public void handle(ActionEvent e) {
             	Stage stage=new Stage();
-                SubmitScreen s=new SubmitScreen(contest);
+                SubmitScreen s=new SubmitScreen(contest, encoding);
                 s.start(stage);
             }
         });
@@ -103,7 +106,7 @@ public class Problems extends Application{
             @Override
             public void handle(ActionEvent e) {
             	Stage stage=new Stage();
-                Results r=new Results(contest);
+                Results r=new Results(contest, encoding);
                 r.start(stage);
             }
         });
@@ -124,4 +127,5 @@ public class Problems extends Application{
         primaryStage.show();
     }
 }
+
 
