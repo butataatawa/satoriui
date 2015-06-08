@@ -1,9 +1,4 @@
 package net.atomshare.satori.gui;
-
-/**
- * Created by franciszek on 26.04.15.
- */
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,11 +20,12 @@ import javafx.stage.Stage;
 
 public class LoginScreen extends Application {
     public static void main(String[] args) {
-        launch(args);
+        launch();
     }
 
     @Override
     public void start(Stage primaryStage) {
+
         primaryStage.setTitle("SatoriUi Welcome");
 
         GridPane grid = new GridPane();
@@ -50,12 +46,13 @@ public class LoginScreen extends Application {
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                actiontarget.setFill(Color.FIREBRICK);
-                actiontarget.setText("Sign in button pressed");
+                Stage stage=new Stage();
+                Contests c=new Contests();
+                c.start(stage);
             }
         });
 
-        Scene scene = new Scene(grid, 0b100101100, 275);
+        Scene scene = new Scene(grid, 350, 275);
         primaryStage.setScene(scene);
 
         Text scenetitle = new Text("Welcome");
