@@ -1,4 +1,6 @@
 package net.atomshare.satori.gui;
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -7,6 +9,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -63,9 +66,10 @@ public class SubmitScreen extends Application{
         hbBtn.getChildren().add(btn);
         grid.add(hbBtn, 2, 4);
       
+        ContestList cl=new ContestList(encoding);
+        ArrayList<String> l = cl.listProblems(cl.findContest(contest));
         final ListView<String> list = new ListView<String>();
-        ObservableList<String> items =FXCollections.observableArrayList (
-            "A", "B", "C", "D");
+        ObservableList<String> items =FXCollections.observableArrayList (l);
         list.setItems(items);
         list.setPrefSize(210, 30);
         grid.add(list, 1, 1, 2, 1);
