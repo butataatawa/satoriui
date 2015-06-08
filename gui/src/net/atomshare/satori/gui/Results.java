@@ -23,13 +23,16 @@ import javafx.scene.control.*;
 
 public class Results extends Application{
 	String contest;
+	String encoding;
 	Results()
 	{
 		contest=null;
+		encoding=null;
 	}
-	Results(String r)
+	Results(String r, String s)
 	{
 		contest=r;
+		encoding=s;
 	}
     public static void main(String[] args) {
         launch(args);
