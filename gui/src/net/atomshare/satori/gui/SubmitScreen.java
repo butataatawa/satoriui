@@ -17,10 +17,24 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.*;
+
 public class SubmitScreen extends Application{
+	String contest;
+	SubmitScreen()
+	{
+		contest=null;
+	}
+	SubmitScreen(String r)
+	{
+		contest=r;
+	}
 	public static void main(String[] args) {
         launch(args);
 	}
+	
 	@Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Wysyłanie rozwiązań");
@@ -30,25 +44,49 @@ public class SubmitScreen extends Application{
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
+        
+       
+       final Text actiontarget = new Text();
+        grid.add(actiontarget, 1, 4);
+        
+        TextField userTextField = new TextField();
+        grid.add(userTextField, 1, 2, 2, 1);
 
-        final Text actiontarget = new Text();
-        grid.add(actiontarget, 1, 6);
-
+      
+        
         Button btn = new Button("Wyślij");
         HBox hbBtn = new HBox(10);
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
         hbBtn.getChildren().add(btn);
-        grid.add(hbBtn, 1, 4);
-
+        grid.add(hbBtn, 2, 4);
+      
+        final ListView<String> list = new ListView<String>();
+        ObservableList<String> items =FXCollections.observableArrayList (
+            "A", "B", "C", "D");
+        list.setItems(items);
+        list.setPrefSize(210, 30);
+        grid.add(list, 1, 1, 2, 1);
+        
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                actiontarget.setFill(Color.GREEN);
-                actiontarget.setText("Wysłano");
+            	if(list.getSelectionModel().getSelectedItem()==null)
+            	{
+            		actiontarget.setFill(Color.RED);
+            		actiontarget.setText("Wybierz zadanie!");
+            	}
+            	else
+            	{          	
+            		actiontarget.setFill(Color.GREEN);
+            		actiontarget.setText("Wysłano");
+            	
+            	}
             }
         });
+        
+ 
 
-        Scene scene = new Scene(grid, 400, 250);
+        Scene scene = new Scene(grid, 400, 225);
         primaryStage.setScene(scene);
 
         Text scenetitle = new Text("Wyślij rozwiązanie");
@@ -58,15 +96,13 @@ public class SubmitScreen extends Application{
         Label userName = new Label("Wybierz zadanie:");
         grid.add(userName, 0, 1);
 
-        TextField userTextField = new TextField();
-        grid.add(userTextField, 1, 1);
 
-        Label pw = new Label("Wybierz plik:");
+        Label pw = new Label("Podaj ścieżkę pliku:");
         grid.add(pw, 0, 2);
 
-        PasswordField pwBox = new PasswordField();
-        grid.add(pwBox, 1, 2);
+      
 
         primaryStage.show();
     }
 }
+
