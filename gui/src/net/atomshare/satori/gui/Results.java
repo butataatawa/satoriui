@@ -1,6 +1,4 @@
 package net.atomshare.satori.gui;
-//Jan Derbisz
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,6 +22,15 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 
 public class Results extends Application{
+	String contest;
+	Results()
+	{
+		contest=null;
+	}
+	Results(String r)
+	{
+		contest=r;
+	}
     public static void main(String[] args) {
         launch(args);
     }
@@ -44,20 +51,28 @@ public class Results extends Application{
         hbBtn.getChildren().add(btn);
         grid.add(hbBtn, 2, 3);
 
-        ListView<String> list = new ListView<String>();
+        final ListView<String> list = new ListView<String>();
         ObservableList<String> items =FXCollections.observableArrayList (
                 "A  Nazwa1", "B  Nazwa2", "C  Nazwa3", "D  Nazwa 4");
         list.setItems(items);
         list.setPrefSize(210, 30);
         grid.add(list, 1, 1, 2, 1);
 
-
+        final Text actiontarget = new Text();
+        grid.add(actiontarget, 1, 4);
 
         btn.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent e) {
-
+            	if (list.getSelectionModel().getSelectedItem()!=null){
+            		actiontarget.setText("");
+            	}
+            	else
+            	{
+            		actiontarget.setFill(Color.RED);
+            		actiontarget.setText("Wybierz wynik!");
+            	}
             }
         });
 
