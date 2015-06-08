@@ -1,4 +1,6 @@
 package net.atomshare.satori.gui;
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -66,9 +68,10 @@ public class Problems extends Application{
         hbBtn3.getChildren().add(btn3);
         grid.add(hbBtn3, 1, 3);
 
+        ContestList cl=new ContestList(encoding);
+        ArrayList<String> l = cl.listProblems(cl.findContest(contest));
         final ListView<String> list = new ListView<String>();
-        ObservableList<String> items =FXCollections.observableArrayList (
-                "A  Nazwa1", "B  Nazwa2", "C  Nazwa3", "D  Nazwa 4");
+        ObservableList<String> items =FXCollections.observableArrayList (l);
         list.setItems(items);
         list.setPrefSize(210, 30);
         grid.add(list, 1, 1, 2, 1);
@@ -127,5 +130,4 @@ public class Problems extends Application{
         primaryStage.show();
     }
 }
-
 
